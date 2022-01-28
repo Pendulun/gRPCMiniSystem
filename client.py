@@ -15,7 +15,8 @@ def runClient(serverAdd):
                 response = stub.Insert(keyValueStore_pb2.KeyValuePair(key=int(inputSplit[1]), value=inputSplit[2]))
                 print(str(response.flag))
             elif inputSplit[0] == 'C':
-                pass
+                response = stub.Query(keyValueStore_pb2.Key(key=int(inputSplit[1])))
+                print(str(response.value))
             elif inputSplit[0] == 'A':
                 pass
             elif inputSplit[0] == 'T':

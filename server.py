@@ -18,6 +18,12 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
             myResponse = keyValueStore_pb2.FlagResponse(flag=-1)
         print(list(self.pairs.items()))
         return myResponse
+    
+    def Query(self, key, context):
+        result = ""
+        if key.key in self.pairs:
+            result = self.pairs[key.key]
+        return keyValueStore_pb2.Value(value=result)
 
 def server(serverPort):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
