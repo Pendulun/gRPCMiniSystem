@@ -13,6 +13,7 @@ def runClient(serverAdd):
 
             if inputSplit[0] == 'I':
                 response = stub.Insert(keyValueStore_pb2.KeyValuePair(key=int(inputSplit[1]), value=inputSplit[2]))
+                print(str(response.flag))
             elif inputSplit[0] == 'C':
                 pass
             elif inputSplit[0] == 'A':

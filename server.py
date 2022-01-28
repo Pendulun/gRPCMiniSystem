@@ -10,9 +10,14 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
         self.pairs = {}
     
     def Insert(self, keyValuePair, context):
-        self.pairs[keyValuePair.key] = keyValuePair.value
+        myResponse = 0
+        if keyValuePair.key not in self.pairs:
+            self.pairs[keyValuePair.key] = keyValuePair.value
+            myResponse = keyValueStore_pb2.FlagResponse(flag=0)
+        else:
+            myResponse = keyValueStore_pb2.FlagResponse(flag=-1)
         print(list(self.pairs.items()))
-        return keyValueStore_pb2.FlagResponse(flag=1)
+        return myResponse
 
 def server(serverPort):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
