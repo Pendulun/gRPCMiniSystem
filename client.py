@@ -18,7 +18,8 @@ def runClient(serverAdd):
                 response = stub.Query(keyValueStore_pb2.Key(key=int(inputSplit[1])))
                 print(str(response.value))
             elif inputSplit[0] == 'A':
-                pass
+                response = stub.Activate(keyValueStore_pb2.ServiceActivation(serviceName=inputSplit[1]))
+                print(str(response.flag))
             elif inputSplit[0] == 'T':
                 pass
             elif inputSplit[0] == 'K':

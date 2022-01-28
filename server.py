@@ -24,6 +24,9 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
         if key.key in self.pairs:
             result = self.pairs[key.key]
         return keyValueStore_pb2.Value(value=result)
+    
+    def Activate(self, serviceActivation, context):
+        return keyValueStore_pb2.FlagResponse(flag=0)
 
 def server(serverPort):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
