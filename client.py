@@ -21,9 +21,10 @@ def runClient(serverAdd):
                 response = stub.Activate(keyValueStore_pb2.ServiceActivation(serviceName=inputSplit[1]))
                 print(str(response.flag))
             elif inputSplit[0] == 'T':
-                pass
-            elif inputSplit[0] == 'K':
-                break
+                response = stub.Stop(keyValueStore_pb2.StopParams())
+                if response.flag == 0:
+                    break
+            
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
