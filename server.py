@@ -1,7 +1,6 @@
 from concurrent import futures
 import grpc
 import sys
-sys.path.append('protos')
 
 import keyValueStore_pb2
 import keyValueStore_pb2_grpc
