@@ -19,21 +19,59 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x13keyValueStore.proto\"\x12\n\x03Key\x12\x0b\n\x03key\x18\x01 \x02(\x05\"\x16\n\x05Value\x12\r\n\x05value\x18\x01 \x02(\t\"*\n\x0cKeyValuePair\x12\x0b\n\x03key\x18\x01 \x02(\x05\x12\r\n\x05value\x18\x02 \x02(\t\"\x1c\n\x0c\x46lagResponse\x12\x0c\n\x04\x66lag\x18\x01 \x02(\x05\"(\n\x11ServiceActivation\x12\x13\n\x0bserviceName\x18\x01 \x02(\t\"\x0c\n\nStopParams2\xa1\x01\n\rKeyValueStore\x12&\n\x06Insert\x12\r.KeyValuePair\x1a\r.FlagResponse\x12\x15\n\x05Query\x12\x04.Key\x1a\x06.Value\x12-\n\x08\x41\x63tivate\x12\x12.ServiceActivation\x1a\r.FlagResponse\x12\"\n\x04Stop\x12\x0b.StopParams\x1a\r.FlagResponse')
+  serialized_pb=_b('\n\x13keyValueStore.proto\"F\n\nPairServer\x12\x12\n\nserverAddr\x18\x01 \x02(\t\x12$\n\rkeyValuePairs\x18\x02 \x03(\x0b\x32\r.KeyValuePair\"\x1f\n\tPairCount\x12\x12\n\npairsCount\x18\x01 \x02(\x05\"*\n\x0cKeyValuePair\x12\x0b\n\x03key\x18\x01 \x02(\x05\x12\r\n\x05value\x18\x02 \x02(\t\"\x12\n\x03Key\x12\x0b\n\x03key\x18\x01 \x02(\x05\"\x16\n\x05Value\x12\r\n\x05value\x18\x01 \x02(\t\"\x1c\n\x0c\x46lagResponse\x12\x0c\n\x04\x66lag\x18\x01 \x02(\x05\" \n\nServerAddr\x12\x12\n\nserverAddr\x18\x01 \x02(\t\"\x0c\n\nStopParams2\x9a\x01\n\rKeyValueStore\x12&\n\x06Insert\x12\r.KeyValuePair\x1a\r.FlagResponse\x12\x15\n\x05Query\x12\x04.Key\x1a\x06.Value\x12&\n\x08\x41\x63tivate\x12\x0b.ServerAddr\x1a\r.FlagResponse\x12\"\n\x04Stop\x12\x0b.StopParams\x1a\r.FlagResponse2\x84\x01\n\rCentralServer\x12#\n\x08Register\x12\x0b.PairServer\x1a\n.PairCount\x12 \n\x0bMapToServer\x12\x04.Key\x1a\x0b.ServerAddr\x12,\n\x11StopCentralServer\x12\x0b.StopParams\x1a\n.PairCount')
 )
 
 
 
 
-_KEY = _descriptor.Descriptor(
-  name='Key',
-  full_name='Key',
+_PAIRSERVER = _descriptor.Descriptor(
+  name='PairServer',
+  full_name='PairServer',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='Key.key', index=0,
+      name='serverAddr', full_name='PairServer.serverAddr', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='keyValuePairs', full_name='PairServer.keyValuePairs', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=23,
+  serialized_end=93,
+)
+
+
+_PAIRCOUNT = _descriptor.Descriptor(
+  name='PairCount',
+  full_name='PairCount',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='pairsCount', full_name='PairCount.pairsCount', index=0,
       number=1, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -51,39 +89,8 @@ _KEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=23,
-  serialized_end=41,
-)
-
-
-_VALUE = _descriptor.Descriptor(
-  name='Value',
-  full_name='Value',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='value', full_name='Value.value', index=0,
-      number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=43,
-  serialized_end=65,
+  serialized_start=95,
+  serialized_end=126,
 )
 
 
@@ -120,8 +127,70 @@ _KEYVALUEPAIR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=67,
-  serialized_end=109,
+  serialized_start=128,
+  serialized_end=170,
+)
+
+
+_KEY = _descriptor.Descriptor(
+  name='Key',
+  full_name='Key',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='Key.key', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=172,
+  serialized_end=190,
+)
+
+
+_VALUE = _descriptor.Descriptor(
+  name='Value',
+  full_name='Value',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='value', full_name='Value.value', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=192,
+  serialized_end=214,
 )
 
 
@@ -151,20 +220,20 @@ _FLAGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=111,
-  serialized_end=139,
+  serialized_start=216,
+  serialized_end=244,
 )
 
 
-_SERVICEACTIVATION = _descriptor.Descriptor(
-  name='ServiceActivation',
-  full_name='ServiceActivation',
+_SERVERADDR = _descriptor.Descriptor(
+  name='ServerAddr',
+  full_name='ServerAddr',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='serviceName', full_name='ServiceActivation.serviceName', index=0,
+      name='serverAddr', full_name='ServerAddr.serverAddr', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -182,8 +251,8 @@ _SERVICEACTIVATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=141,
-  serialized_end=181,
+  serialized_start=246,
+  serialized_end=278,
 )
 
 
@@ -206,17 +275,41 @@ _STOPPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=183,
-  serialized_end=195,
+  serialized_start=280,
+  serialized_end=292,
 )
 
+_PAIRSERVER.fields_by_name['keyValuePairs'].message_type = _KEYVALUEPAIR
+DESCRIPTOR.message_types_by_name['PairServer'] = _PAIRSERVER
+DESCRIPTOR.message_types_by_name['PairCount'] = _PAIRCOUNT
+DESCRIPTOR.message_types_by_name['KeyValuePair'] = _KEYVALUEPAIR
 DESCRIPTOR.message_types_by_name['Key'] = _KEY
 DESCRIPTOR.message_types_by_name['Value'] = _VALUE
-DESCRIPTOR.message_types_by_name['KeyValuePair'] = _KEYVALUEPAIR
 DESCRIPTOR.message_types_by_name['FlagResponse'] = _FLAGRESPONSE
-DESCRIPTOR.message_types_by_name['ServiceActivation'] = _SERVICEACTIVATION
+DESCRIPTOR.message_types_by_name['ServerAddr'] = _SERVERADDR
 DESCRIPTOR.message_types_by_name['StopParams'] = _STOPPARAMS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+PairServer = _reflection.GeneratedProtocolMessageType('PairServer', (_message.Message,), dict(
+  DESCRIPTOR = _PAIRSERVER,
+  __module__ = 'keyValueStore_pb2'
+  # @@protoc_insertion_point(class_scope:PairServer)
+  ))
+_sym_db.RegisterMessage(PairServer)
+
+PairCount = _reflection.GeneratedProtocolMessageType('PairCount', (_message.Message,), dict(
+  DESCRIPTOR = _PAIRCOUNT,
+  __module__ = 'keyValueStore_pb2'
+  # @@protoc_insertion_point(class_scope:PairCount)
+  ))
+_sym_db.RegisterMessage(PairCount)
+
+KeyValuePair = _reflection.GeneratedProtocolMessageType('KeyValuePair', (_message.Message,), dict(
+  DESCRIPTOR = _KEYVALUEPAIR,
+  __module__ = 'keyValueStore_pb2'
+  # @@protoc_insertion_point(class_scope:KeyValuePair)
+  ))
+_sym_db.RegisterMessage(KeyValuePair)
 
 Key = _reflection.GeneratedProtocolMessageType('Key', (_message.Message,), dict(
   DESCRIPTOR = _KEY,
@@ -232,13 +325,6 @@ Value = _reflection.GeneratedProtocolMessageType('Value', (_message.Message,), d
   ))
 _sym_db.RegisterMessage(Value)
 
-KeyValuePair = _reflection.GeneratedProtocolMessageType('KeyValuePair', (_message.Message,), dict(
-  DESCRIPTOR = _KEYVALUEPAIR,
-  __module__ = 'keyValueStore_pb2'
-  # @@protoc_insertion_point(class_scope:KeyValuePair)
-  ))
-_sym_db.RegisterMessage(KeyValuePair)
-
 FlagResponse = _reflection.GeneratedProtocolMessageType('FlagResponse', (_message.Message,), dict(
   DESCRIPTOR = _FLAGRESPONSE,
   __module__ = 'keyValueStore_pb2'
@@ -246,12 +332,12 @@ FlagResponse = _reflection.GeneratedProtocolMessageType('FlagResponse', (_messag
   ))
 _sym_db.RegisterMessage(FlagResponse)
 
-ServiceActivation = _reflection.GeneratedProtocolMessageType('ServiceActivation', (_message.Message,), dict(
-  DESCRIPTOR = _SERVICEACTIVATION,
+ServerAddr = _reflection.GeneratedProtocolMessageType('ServerAddr', (_message.Message,), dict(
+  DESCRIPTOR = _SERVERADDR,
   __module__ = 'keyValueStore_pb2'
-  # @@protoc_insertion_point(class_scope:ServiceActivation)
+  # @@protoc_insertion_point(class_scope:ServerAddr)
   ))
-_sym_db.RegisterMessage(ServiceActivation)
+_sym_db.RegisterMessage(ServerAddr)
 
 StopParams = _reflection.GeneratedProtocolMessageType('StopParams', (_message.Message,), dict(
   DESCRIPTOR = _STOPPARAMS,
@@ -268,8 +354,8 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=198,
-  serialized_end=359,
+  serialized_start=295,
+  serialized_end=449,
   methods=[
   _descriptor.MethodDescriptor(
     name='Insert',
@@ -294,7 +380,7 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
     full_name='KeyValueStore.Activate',
     index=2,
     containing_service=None,
-    input_type=_SERVICEACTIVATION,
+    input_type=_SERVERADDR,
     output_type=_FLAGRESPONSE,
     serialized_options=None,
   ),
@@ -311,5 +397,47 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
 _sym_db.RegisterServiceDescriptor(_KEYVALUESTORE)
 
 DESCRIPTOR.services_by_name['KeyValueStore'] = _KEYVALUESTORE
+
+
+_CENTRALSERVER = _descriptor.ServiceDescriptor(
+  name='CentralServer',
+  full_name='CentralServer',
+  file=DESCRIPTOR,
+  index=1,
+  serialized_options=None,
+  serialized_start=452,
+  serialized_end=584,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Register',
+    full_name='CentralServer.Register',
+    index=0,
+    containing_service=None,
+    input_type=_PAIRSERVER,
+    output_type=_PAIRCOUNT,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='MapToServer',
+    full_name='CentralServer.MapToServer',
+    index=1,
+    containing_service=None,
+    input_type=_KEY,
+    output_type=_SERVERADDR,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='StopCentralServer',
+    full_name='CentralServer.StopCentralServer',
+    index=2,
+    containing_service=None,
+    input_type=_STOPPARAMS,
+    output_type=_PAIRCOUNT,
+    serialized_options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_CENTRALSERVER)
+
+DESCRIPTOR.services_by_name['CentralServer'] = _CENTRALSERVER
 
 # @@protoc_insertion_point(module_scope)
