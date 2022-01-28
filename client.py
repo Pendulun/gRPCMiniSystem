@@ -30,5 +30,5 @@ if __name__ == '__main__':
     if len(sys.argv) != 2:
         exit()
 
-    serverAdd = sys.argv[1]
+    serverAdd = str(sys.argv[1])
     runClient(serverAdd)
