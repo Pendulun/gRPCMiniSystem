@@ -15,35 +15,54 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
         self._isSecondPart = isSecondPart
     
     def Insert(self, keyValuePair, context):
+        """
+        Save a key-value pair if the key doesn't already exists
+        """
         myResponse = 0
+
+        #If key doesn't already exists
         if keyValuePair.key not in self.pairs:
             self.pairs[keyValuePair.key] = keyValuePair.value
             myResponse = keyValueStore_pb2.FlagResponse(flag=0)
         else:
             myResponse = keyValueStore_pb2.FlagResponse(flag=-1)
+        
         return myResponse
     
     def Query(self, key, context):
+        """
+        Query for a key's value. Returns an empty string if the key doesn't exists
+        """
         result = ""
         if key.key in self.pairs:
             result = self.pairs[key.key]
         return keyValueStore_pb2.Value(value=result)
     
     def Activate(self, serviceActivation, context):
+        """
+        Returns 0 if it is for the first part or sends all keys that this server owns to the central server
+        if it is the second part
+        """
         if self._isSecondPart:
+            #Connects to the central server
             with grpc.insecure_channel(serviceActivation.serverAddr) as newChannel:
                 stub = keyValueStore_pb2_grpc.CentralServerStub(newChannel)
+                
+                #Define message's fields
                 pairServer = keyValueStore_pb2.PairServer()
                 pairServer.serverAddr = self._myAddr
-                keysMessageList = []
                 for key in list(self.pairs.keys()):
                     pairServer.keys.add().key=key
+                
                 response = stub.Register(pairServer)
                 return keyValueStore_pb2.FlagResponse(flag=response.pairsCount)
         else:
             return keyValueStore_pb2.FlagResponse(flag=0)
     
     def Stop(self, stopParams, context):
+        """
+        Stop this server
+        """
         self._stop_event.set()
         return keyValueStore_pb2.FlagResponse(flag=0)
 
