@@ -38,7 +38,7 @@ def secondPartOpts(channel):
                 with grpc.insecure_channel(pairServerAddr) as channel:
                     secStub = keyValueStore_pb2_grpc.KeyValueStoreStub(channel)
                     response = secStub.Query(keyValueStore_pb2.Key(key=int(inputSplit[1])))
-                    print(pairServerAddr+str(response.value))
+                    print(pairServerAddr+":"+str(response.value))
 
         elif inputSplit[0] == 'T':
             response = stub.StopCentralServer(keyValueStore_pb2.StopParams())

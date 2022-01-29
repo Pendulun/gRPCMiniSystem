@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x13keyValueStore.proto\"F\n\nPairServer\x12\x12\n\nserverAddr\x18\x01 \x02(\t\x12$\n\rkeyValuePairs\x18\x02 \x03(\x0b\x32\r.KeyValuePair\"\x1f\n\tPairCount\x12\x12\n\npairsCount\x18\x01 \x02(\x05\"*\n\x0cKeyValuePair\x12\x0b\n\x03key\x18\x01 \x02(\x05\x12\r\n\x05value\x18\x02 \x02(\t\"\x12\n\x03Key\x12\x0b\n\x03key\x18\x01 \x02(\x05\"\x16\n\x05Value\x12\r\n\x05value\x18\x01 \x02(\t\"\x1c\n\x0c\x46lagResponse\x12\x0c\n\x04\x66lag\x18\x01 \x02(\x05\" \n\nServerAddr\x12\x12\n\nserverAddr\x18\x01 \x02(\t\"\x0c\n\nStopParams2\x9a\x01\n\rKeyValueStore\x12&\n\x06Insert\x12\r.KeyValuePair\x1a\r.FlagResponse\x12\x15\n\x05Query\x12\x04.Key\x1a\x06.Value\x12&\n\x08\x41\x63tivate\x12\x0b.ServerAddr\x1a\r.FlagResponse\x12\"\n\x04Stop\x12\x0b.StopParams\x1a\r.FlagResponse2\x84\x01\n\rCentralServer\x12#\n\x08Register\x12\x0b.PairServer\x1a\n.PairCount\x12 \n\x0bMapToServer\x12\x04.Key\x1a\x0b.ServerAddr\x12,\n\x11StopCentralServer\x12\x0b.StopParams\x1a\n.PairCount')
+  serialized_pb=_b('\n\x13keyValueStore.proto\"4\n\nPairServer\x12\x12\n\nserverAddr\x18\x01 \x02(\t\x12\x12\n\x04keys\x18\x02 \x03(\x0b\x32\x04.Key\"\x1f\n\tPairCount\x12\x12\n\npairsCount\x18\x01 \x02(\x05\"*\n\x0cKeyValuePair\x12\x0b\n\x03key\x18\x01 \x02(\x05\x12\r\n\x05value\x18\x02 \x02(\t\"\x12\n\x03Key\x12\x0b\n\x03key\x18\x01 \x02(\x05\"\x16\n\x05Value\x12\r\n\x05value\x18\x01 \x02(\t\"\x1c\n\x0c\x46lagResponse\x12\x0c\n\x04\x66lag\x18\x01 \x02(\x05\" \n\nServerAddr\x12\x12\n\nserverAddr\x18\x01 \x02(\t\"\x0c\n\nStopParams2\x9a\x01\n\rKeyValueStore\x12&\n\x06Insert\x12\r.KeyValuePair\x1a\r.FlagResponse\x12\x15\n\x05Query\x12\x04.Key\x1a\x06.Value\x12&\n\x08\x41\x63tivate\x12\x0b.ServerAddr\x1a\r.FlagResponse\x12\"\n\x04Stop\x12\x0b.StopParams\x1a\r.FlagResponse2\x84\x01\n\rCentralServer\x12#\n\x08Register\x12\x0b.PairServer\x1a\n.PairCount\x12 \n\x0bMapToServer\x12\x04.Key\x1a\x0b.ServerAddr\x12,\n\x11StopCentralServer\x12\x0b.StopParams\x1a\n.PairCount')
 )
 
 
@@ -40,7 +40,7 @@ _PAIRSERVER = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='keyValuePairs', full_name='PairServer.keyValuePairs', index=1,
+      name='keys', full_name='PairServer.keys', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -59,7 +59,7 @@ _PAIRSERVER = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=23,
-  serialized_end=93,
+  serialized_end=75,
 )
 
 
@@ -89,8 +89,8 @@ _PAIRCOUNT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=95,
-  serialized_end=126,
+  serialized_start=77,
+  serialized_end=108,
 )
 
 
@@ -127,8 +127,8 @@ _KEYVALUEPAIR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=128,
-  serialized_end=170,
+  serialized_start=110,
+  serialized_end=152,
 )
 
 
@@ -158,8 +158,8 @@ _KEY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=172,
-  serialized_end=190,
+  serialized_start=154,
+  serialized_end=172,
 )
 
 
@@ -189,8 +189,8 @@ _VALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=192,
-  serialized_end=214,
+  serialized_start=174,
+  serialized_end=196,
 )
 
 
@@ -220,8 +220,8 @@ _FLAGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=216,
-  serialized_end=244,
+  serialized_start=198,
+  serialized_end=226,
 )
 
 
@@ -251,8 +251,8 @@ _SERVERADDR = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=246,
-  serialized_end=278,
+  serialized_start=228,
+  serialized_end=260,
 )
 
 
@@ -275,11 +275,11 @@ _STOPPARAMS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=280,
-  serialized_end=292,
+  serialized_start=262,
+  serialized_end=274,
 )
 
-_PAIRSERVER.fields_by_name['keyValuePairs'].message_type = _KEYVALUEPAIR
+_PAIRSERVER.fields_by_name['keys'].message_type = _KEY
 DESCRIPTOR.message_types_by_name['PairServer'] = _PAIRSERVER
 DESCRIPTOR.message_types_by_name['PairCount'] = _PAIRCOUNT
 DESCRIPTOR.message_types_by_name['KeyValuePair'] = _KEYVALUEPAIR
@@ -354,8 +354,8 @@ _KEYVALUESTORE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=295,
-  serialized_end=449,
+  serialized_start=277,
+  serialized_end=431,
   methods=[
   _descriptor.MethodDescriptor(
     name='Insert',
@@ -405,8 +405,8 @@ _CENTRALSERVER = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=1,
   serialized_options=None,
-  serialized_start=452,
-  serialized_end=584,
+  serialized_start=434,
+  serialized_end=566,
   methods=[
   _descriptor.MethodDescriptor(
     name='Register',

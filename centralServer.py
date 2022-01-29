@@ -15,7 +15,6 @@ class CentralServerServicer(keyValueStore_pb2_grpc.CentralServerServicer):
     
     def Register(self, pairServer, context):
         serverAddr = pairServer.serverAddr
-        print(f"Recebeu msg do server {serverAddr}")
         if serverAddr in self._serversAddr or len(self._serversAddr) <= self._maxServers:
             
             if serverAddr not in self._serversAddr:
@@ -24,7 +23,7 @@ class CentralServerServicer(keyValueStore_pb2_grpc.CentralServerServicer):
             for key in pairServer.keys:
                 self._pairs[key.key] = serverAddr
 
-            print(list(self._pairs.items()))
+            return keyValueStore_pb2.PairCount(pairsCount=len(pairServer.keys))
         else:        
             return keyValueStore_pb2.PairCount(pairsCount=0)
     
@@ -39,7 +38,7 @@ class CentralServerServicer(keyValueStore_pb2_grpc.CentralServerServicer):
 
     def StopCentralServer(self, stopParams, context):
         self._stop_event.set()
-        numKeys = len(self.pairs.keys())
+        numKeys = len(self._pairs.keys())
         return keyValueStore_pb2.PairCount(pairsCount=numKeys)
 
 def server(serverPort):
@@ -50,7 +49,7 @@ def server(serverPort):
     server.add_insecure_port(f'[::]:{serverPort}')
     server.start()
     stop_event.wait()
-    server.stop(grace=None)
+    server.stop(grace=1)
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:

@@ -20,7 +20,6 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
             myResponse = keyValueStore_pb2.FlagResponse(flag=0)
         else:
             myResponse = keyValueStore_pb2.FlagResponse(flag=-1)
-        print(list(self.pairs.items()))
         return myResponse
     
     def Query(self, key, context):
@@ -31,12 +30,13 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
     
     def Activate(self, serviceActivation, context):
         with grpc.insecure_channel(serviceActivation.serverAddr) as newChannel:
-            print("Conectou com central!")
             stub = keyValueStore_pb2_grpc.CentralServerStub(newChannel)
-            pairServer = keyValueStore_pb2.PairServer(serverAddr = self._myAddr)
-            pairServer.keys.extend(list(self.pairs.keys()))
+            pairServer = keyValueStore_pb2.PairServer()
+            pairServer.serverAddr = self._myAddr
+            keysMessageList = []
+            for key in list(self.pairs.keys()):
+                pairServer.keys.add().key=key
             response = stub.Register(pairServer)
-            print(f"response: {response.pairsCount}")
             return keyValueStore_pb2.FlagResponse(flag=response.pairsCount)
     
     def Stop(self, stopParams, context):
@@ -45,16 +45,14 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
 
 def server(serverPort):
     stop_event = threading.Event()
-    myAddr = socket.getfqdn()+str(serverPort)
-    print(f"My Addr: {myAddr}")
+    myAddr = f"{socket.getfqdn()}:{str(serverPort)}"
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     keyValueStore_pb2_grpc.add_KeyValueStoreServicer_to_server(
         KeyValueStoreServicer(stop_event, myAddr), server)
     server.add_insecure_port(f'[::]:{serverPort}')
     server.start()
     stop_event.wait()
-    server.stop(grace=None)
-
+    server.stop(grace=1)
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
