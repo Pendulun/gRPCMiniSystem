@@ -1,5 +1,6 @@
 syntax = "proto2";
 
+//Service for pairs servers
 service KeyValueStore{
     rpc Insert(KeyValuePair) returns (FlagResponse);
     
@@ -8,23 +9,6 @@ service KeyValueStore{
     rpc Activate(ServerAddr) returns (FlagResponse);
 
     rpc Stop(StopParams) returns (FlagResponse);
-}
-
-service CentralServer{
-    rpc Register(PairServer) returns (PairCount);
-    
-    rpc MapToServer(Key) returns (ServerAddr);
-
-    rpc StopCentralServer(StopParams) returns (PairCount);
-}
-
-message PairServer{
-    required string serverAddr = 1;
-    repeated Key keys = 2;
-}
-
-message PairCount{
-    required int32 pairsCount = 1;
 }
 
 message KeyValuePair{
@@ -50,4 +34,22 @@ message ServerAddr{
 
 message StopParams{
 
+}
+
+//Service for central server
+service CentralServer{
+    rpc Register(PairServer) returns (PairCount);
+    
+    rpc MapToServer(Key) returns (ServerAddr);
+
+    rpc StopCentralServer(StopParams) returns (PairCount);
+}
+
+message PairServer{
+    required string serverAddr = 1;
+    repeated Key keys = 2;
+}
+
+message PairCount{
+    required int32 pairsCount = 1;
 }
