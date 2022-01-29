@@ -14,12 +14,19 @@ class CentralServerServicer(keyValueStore_pb2_grpc.CentralServerServicer):
         self._maxServers = 10
     
     def Register(self, pairServer, context):
+        """
+        Registers key-serverId pairs.
+        """
         serverAddr = pairServer.serverAddr
+        #If pair server has already sent its keys once or if it is it's first time and
+        #we aren't saving keys from more than 10 (self._maxServers) servers already 
         if serverAddr in self._serversAddr or len(self._serversAddr) <= self._maxServers:
             
+            #If it is the first time, save the servers id
             if serverAddr not in self._serversAddr:
                 self._serversAddr.append(serverAddr)
 
+            #Registers it's keys
             for key in pairServer.keys:
                 self._pairs[key.key] = serverAddr
 
@@ -28,6 +35,9 @@ class CentralServerServicer(keyValueStore_pb2_grpc.CentralServerServicer):
             return keyValueStore_pb2.PairCount(pairsCount=0)
     
     def MapToServer(self, key, context):
+        """
+        Returns the servers ID that owns the key. Empty if there are no servers that owns the key.
+        """
         result = ""
 
         if key.key in self._pairs:
@@ -37,11 +47,14 @@ class CentralServerServicer(keyValueStore_pb2_grpc.CentralServerServicer):
     
 
     def StopCentralServer(self, stopParams, context):
+        """
+        Stops this server
+        """
         self._stop_event.set()
         numKeys = len(self._pairs.keys())
         return keyValueStore_pb2.PairCount(pairsCount=numKeys)
 
-def server(serverPort):
+def runServer(serverPort):
     stop_event = threading.Event()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     keyValueStore_pb2_grpc.add_CentralServerServicer_to_server(
@@ -56,4 +69,4 @@ if __name__ == '__main__':
         exit()
 
     serverPort = sys.argv[1]
-    server(serverPort)
+    runServer(serverPort)

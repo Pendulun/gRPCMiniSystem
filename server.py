@@ -66,7 +66,7 @@ class KeyValueStoreServicer(keyValueStore_pb2_grpc.KeyValueStoreServicer):
         self._stop_event.set()
         return keyValueStore_pb2.FlagResponse(flag=0)
 
-def server(serverPort, isSecondPart):
+def runServer(serverPort, isSecondPart):
     stop_event = threading.Event()
     myAddr = f"{socket.getfqdn()}:{str(serverPort)}"
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -86,4 +86,4 @@ if __name__ == '__main__':
         isSecondPart = True
     serverPort = sys.argv[1]
 
-    server(serverPort, isSecondPart)
+    runServer(serverPort, isSecondPart)
