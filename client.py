@@ -7,9 +7,12 @@ import keyValueStore_pb2_grpc
 def firstPartOpts(channel):
     stub = keyValueStore_pb2_grpc.KeyValueStoreStub(channel)
     while(True):
+
+        #Gets user input
         command = input()
         inputSplit = command.split(',')
 
+        #Treat options
         if inputSplit[0] == 'I':
             response = stub.Insert(keyValueStore_pb2.KeyValuePair(key=int(inputSplit[1]), value=inputSplit[2]))
             print(str(response.flag))
@@ -28,13 +31,20 @@ def firstPartOpts(channel):
 def secondPartOpts(channel):
     stub = keyValueStore_pb2_grpc.CentralServerStub(channel)
     while(True):
+
+        #Gets user input
         command = input()
         inputSplit = command.split(',')
 
+        #Treat options
         if inputSplit[0] == 'C':
             response = stub.MapToServer(keyValueStore_pb2.Key(key=int(inputSplit[1])))
+            
+            #If there is a server that owns the target key
             if(response.serverAddr != ""):
                 pairServerAddr = response.serverAddr
+
+                #Connects to that server and requests the key's value
                 with grpc.insecure_channel(pairServerAddr) as channel:
                     secStub = keyValueStore_pb2_grpc.KeyValueStoreStub(channel)
                     response = secStub.Query(keyValueStore_pb2.Key(key=int(inputSplit[1])))
